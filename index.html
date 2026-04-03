@@ -6,11 +6,11 @@
     
     <!-- SNS 공유 설정 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" id="og-title" content="Mega Medical - MIGUEL KIM">
-    <meta property="og:description" id="og-desc" content="Overseas Sales Team / Team Leader / Deputy General Manager">
+    <meta property="og:title" id="og-title" content="Mega Medical - Jeongmin Bae">
+    <meta property="og:description" id="og-desc" content="Overseas Sales Team / Manager">
     <meta property="og:image" content="https://www.megamedical.co.kr/img/common/logo.png">
 
-    <title>Mega Medical - MIGUEL KIM</title>
+    <title>Mega Medical - Jeongmin Bae</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -137,14 +137,16 @@
         .brand-btn:active { transform: scale(0.97); }
 
         .soft-item {
-            background: #FFF9F7;
-            border: 1px solid #FFEBE5;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
             transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .soft-item:hover { 
             border-color: var(--brand-orange);
-            background: white;
+            background: #fffaf9;
         }
 
         /* 언어별 표시 제어 */
@@ -178,6 +180,28 @@
         }
         .tag-work { background: #e2e8f0; color: #64748b; }
         .tag-private { background: #fee2e2; color: #ef4444; }
+
+        /* QR 모달 스타일 (대표님 스타일) */
+        #qr-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 2.5rem;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -185,19 +209,17 @@
     <div class="card-container mx-4">
         <!-- Header -->
         <div class="profile-header">
-            <!-- Language Toggle -->
             <div class="lang-toggle">
                 <div id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</div>
                 <div id="btn-ko" class="lang-btn" onclick="setLanguage('ko')">KR</div>
             </div>
 
-            <!-- Logo (Double click to switch numbers) -->
             <div class="logo-box" ondblclick="togglePhoneNumber()">
                 <span class="logo-top">mega</span>
                 <span class="logo-bottom">MEDICAL</span>
             </div>
             <div class="avatar-circle">
-                <span id="avatar-text" class="avatar-initial">MK</span>
+                <span id="avatar-text" class="avatar-initial">JB</span>
             </div>
         </div>
 
@@ -205,18 +227,18 @@
         <div class="content">
             <div class="mb-10">
                 <h1 class="text-3xl font-extrabold text-slate-800">
-                    <span data-lang="en">MIGUEL KIM</span>
-                    <span data-lang="ko">김기웅</span>
+                    <span data-lang="en">Jeongmin Bae</span>
+                    <span data-lang="ko">배정민</span>
                 </h1>
                 <p class="text-sm font-bold text-orange-600 mt-1">
-                    <span data-lang="en">Overseas Sales Team | Team Leader</span>
-                    <span data-lang="ko">해외영업팀 | 차장(팀장)</span>
+                    <span data-lang="en">Overseas Sales Team | Manager</span>
+                    <span data-lang="ko">해외영업팀 | 과장</span>
                     <span id="phone-status" class="phone-type-tag tag-work">WORK</span>
                 </p>
                 <div class="h-1.5 w-12 bg-[#F15A24] mt-4 rounded-full"></div>
             </div>
 
-            <!-- Actions -->
+            <!-- Actions (대표님 스타일 버튼 레이아웃) -->
             <div class="space-y-4 mb-10">
                 <button onclick="downloadVCard()" class="w-full brand-btn py-4 rounded-2xl font-bold flex items-center justify-center gap-3 text-lg">
                     <i class="fa-solid fa-address-book"></i> 
@@ -224,35 +246,39 @@
                     <span data-lang="ko">연락처 저장하기</span>
                 </button>
                 
-                <div class="grid grid-cols-2 gap-3">
-                    <a id="call-link" href="tel:01038735802" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                <div class="grid grid-cols-3 gap-3">
+                    <a id="call-link" href="tel:01046875802" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
                         <i class="fa-solid fa-phone text-[#F15A24] text-xl group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs font-bold text-slate-600" data-lang="en">Call</span>
-                        <span class="text-xs font-bold text-slate-600" data-lang="ko">전화</span>
+                        <span class="text-[10px] font-bold text-slate-500 mt-1" data-lang="en">Call</span>
+                        <span class="text-[10px] font-bold text-slate-500 mt-1" data-lang="ko">직통 전화</span>
                     </a>
-                    <a href="mailto:kwkim@megamedical.co.kr" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
-                        <i class="fa-solid fa-envelope text-[#F15A24] text-xl group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs font-bold text-slate-600" data-lang="en">Email</span>
-                        <span class="text-xs font-bold text-slate-600" data-lang="ko">이메일</span>
+                    <a href="mailto:jmbae@megamedical.co.kr" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                        <i class="fa-solid fa-envelope text-orange-400 text-xl group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] font-bold text-slate-500 mt-1" data-lang="en">Email</span>
+                        <span class="text-[10px] font-bold text-slate-500 mt-1" data-lang="ko">이메일</span>
                     </a>
+                    <div onclick="showQR()" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                        <i class="fa-brands fa-whatsapp text-[#25D366] text-2xl group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] font-bold text-slate-500 mt-1">WhatsApp</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Website Link -->
             <div class="mb-10 text-center">
-                <a href="http://www.megamedical.co.kr" target="_blank" class="text-sm font-bold text-orange-500 border-b-2 border-orange-100 pb-1 hover:border-orange-500 transition-all">
-                    www.megamedical.co.kr <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                <a href="http://www.megamedical.co.kr" target="_blank" class="flex items-center justify-center gap-2 py-3 px-6 rounded-xl border border-dashed border-orange-200 text-sm font-bold text-orange-500 hover:bg-orange-50 transition-all">
+                    <i class="fa-solid fa-globe"></i> 공식 홈페이지 <i class="fa-solid fa-chevron-right text-[10px]"></i>
                 </a>
             </div>
 
             <!-- Address Info -->
-            <div class="space-y-5">
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
+            <div class="space-y-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
                         <i class="fa-solid fa-location-dot text-orange-500 text-sm"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest">Seoul Office</p>
+                        <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest leading-none mb-1">Seoul Office</p>
                         <p class="text-sm text-slate-700 font-medium leading-tight">
                             <span data-lang="en">5F, 439, Bongeunsa-ro, Gangnam-gu, Seoul</span>
                             <span data-lang="ko">서울시 강남구 봉은사로 439 CC빌딩 5층</span>
@@ -260,34 +286,43 @@
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
-                        <i class="fa-solid fa-tty text-slate-400 text-sm"></i>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-industry text-slate-300 text-xs"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Office / Fax</p>
-                        <p class="text-sm text-slate-600">T. 02-3662-4495 / F. 02-3661-0120</p>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-slate-50 flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 opacity-50">
-                        <i class="fa-solid fa-industry text-slate-400 text-xs"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Headquarter</p>
-                        <p class="text-[11px] text-slate-400">
-                             <span data-lang="en">110-1, Donghwagongdan-ro, Munmak-eup, Wonju-si</span>
-                             <span data-lang="ko">강원특별자치도 원주시 동화공단로 110-1</span>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">Headquarter (HQ)</p>
+                        <p class="text-[12px] text-slate-500 font-medium">
+                             강원특별자치도 원주시 동화공단로 110-1
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="mt-14 text-center">
+            <div class="mt-16 text-center">
                 <p class="text-[10px] text-slate-300 tracking-[0.2em] uppercase font-bold">We Do Your ENT / Mega Medical</p>
             </div>
+        </div>
+    </div>
+
+    <!-- QR Modal (WhatsApp QR 코드 표시) -->
+    <div id="qr-modal" onclick="hideQR()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="flex justify-center mb-4">
+                <div class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white text-2xl">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-slate-800">WhatsApp QR</h3>
+            <p class="text-sm text-slate-500 mb-6" data-lang="en">Scan to chat with Jeongmin Bae</p>
+            <p class="text-sm text-slate-500 mb-6" data-lang="ko">스캔하여 배정민 과장과 상담하세요</p>
+            
+            <div class="bg-white p-2 border-4 border-[#25D366] rounded-2xl inline-block mb-6 shadow-inner">
+                <img src="QR_BEE.png" alt="WhatsApp QR Code" class="w-48 h-48 object-contain">
+            </div>
+            
+            <button onclick="hideQR()" class="w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">닫기</button>
         </div>
     </div>
 
@@ -300,8 +335,8 @@
         let currentLang = 'en';
         let isPrivateMode = false;
 
-        const WORK_PHONE = "010-3873-5802";
-        const PRIVATE_PHONE = "010-7231-1538";
+        const WORK_PHONE = "010-4687-5802";
+        const PRIVATE_PHONE = "010-8971-8891";
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -315,11 +350,11 @@
             if (lang === 'ko') {
                 enElements.forEach(el => el.style.display = 'none');
                 koElements.forEach(el => el.style.display = 'inline-block');
-                avatar.innerText = "KW"; // 한국어일 땐 기웅(Ki-Woong)의 KW
+                avatar.innerText = "JM";
             } else {
                 enElements.forEach(el => el.style.display = 'inline-block');
                 koElements.forEach(el => el.style.display = 'none');
-                avatar.innerText = "MK"; // 영어일 땐 Miguel Kim의 MK
+                avatar.innerText = "JB";
             }
         }
 
@@ -358,28 +393,27 @@
 
         function downloadVCard() {
             const currentNum = isPrivateMode ? PRIVATE_PHONE : WORK_PHONE;
-            
             let displayName, fileName, phoneLabel;
             
             if (currentLang === 'ko') {
                 phoneLabel = isPrivateMode ? "(개인)" : "(업무)";
-                displayName = "김기웅 " + phoneLabel;
-                fileName = `김기웅_메가메디칼${phoneLabel}.vcf`;
+                displayName = "배정민 " + phoneLabel;
+                fileName = `배정민_메가메디칼${phoneLabel}.vcf`;
             } else {
                 phoneLabel = isPrivateMode ? "(Private)" : "(Work)";
-                displayName = "MIGUEL KIM " + phoneLabel;
-                fileName = `MiguelKim_MegaMedical${phoneLabel}.vcf`;
+                displayName = "Jeongmin Bae " + phoneLabel;
+                fileName = `JeongminBae_MegaMedical${phoneLabel}.vcf`;
             }
             
             const vCardData = [
                 "BEGIN:VCARD", "VERSION:3.0",
-                currentLang === 'ko' ? "N;CHARSET=UTF-8:;김기웅;;;" : "N;CHARSET=UTF-8:Kim;Miguel;;;",
+                currentLang === 'ko' ? "N;CHARSET=UTF-8:;배정민;;;" : "N;CHARSET=UTF-8:Bae;Jeongmin;;;",
                 "FN;CHARSET=UTF-8:" + displayName,
                 "ORG;CHARSET=UTF-8:Mega Medical (주)메가메디칼",
-                "TITLE;CHARSET=UTF-8:Team Leader / Deputy General Manager (해외영업팀 차장)",
+                "TITLE;CHARSET=UTF-8:Manager (해외영업팀 과장)",
                 "TEL;TYPE=CELL:" + currentNum,
                 "TEL;TYPE=WORK:02-3662-4495",
-                "EMAIL:kwkim@megamedical.co.kr",
+                "EMAIL:jmbae@megamedical.co.kr",
                 "ADR;TYPE=WORK;CHARSET=UTF-8:;;5F, 439, Bongeunsa-ro;Gangnam-gu;Seoul;06097;Korea",
                 "URL:http://www.megamedical.co.kr",
                 "END:VCARD"
@@ -395,13 +429,20 @@
             showToast();
         }
 
+        function showQR() {
+            document.getElementById('qr-modal').style.display = 'flex';
+        }
+
+        function hideQR() {
+            document.getElementById('qr-modal').style.display = 'none';
+        }
+
         function showToast() {
             const toast = document.getElementById("toast");
             toast.className = "show";
             setTimeout(() => { toast.className = ""; }, 3000);
         }
 
-        // 초기 언어 설정 (영어가 기본일 경우 'en', 한국어가 기본일 경우 'ko')
         setLanguage('en');
     </script>
 </body>
