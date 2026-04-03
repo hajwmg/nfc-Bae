@@ -6,11 +6,11 @@
     
     <!-- SNS 공유 설정 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" id="og-title" content="Mega Medical - Jeongmin Bae">
+    <meta property="og:title" id="og-title" content="Mega Medical - JUNG MIN BAE">
     <meta property="og:description" id="og-desc" content="Overseas Sales Team / Manager">
     <meta property="og:image" content="https://www.megamedical.co.kr/img/common/logo.png">
 
-    <title>Mega Medical - Jeongmin Bae</title>
+    <title>Mega Medical - JUNG MIN BAE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -181,7 +181,7 @@
         .tag-work { background: #e2e8f0; color: #64748b; }
         .tag-private { background: #fee2e2; color: #ef4444; }
 
-        /* QR 모달 스타일 (대표님 스타일) */
+        /* QR 모달 스타일 */
         #qr-modal {
             display: none;
             position: fixed;
@@ -227,7 +227,7 @@
         <div class="content">
             <div class="mb-10">
                 <h1 class="text-3xl font-extrabold text-slate-800">
-                    <span data-lang="en">Jeongmin Bae</span>
+                    <span data-lang="en">JUNG MIN BAE</span>
                     <span data-lang="ko">배정민</span>
                 </h1>
                 <p class="text-sm font-bold text-orange-600 mt-1">
@@ -238,7 +238,7 @@
                 <div class="h-1.5 w-12 bg-[#F15A24] mt-4 rounded-full"></div>
             </div>
 
-            <!-- Actions (대표님 스타일 버튼 레이아웃) -->
+            <!-- Actions -->
             <div class="space-y-4 mb-10">
                 <button onclick="downloadVCard()" class="w-full brand-btn py-4 rounded-2xl font-bold flex items-center justify-center gap-3 text-lg">
                     <i class="fa-solid fa-address-book"></i> 
@@ -306,7 +306,7 @@
         </div>
     </div>
 
-    <!-- QR Modal (WhatsApp QR 코드 표시) -->
+    <!-- QR Modal -->
     <div id="qr-modal" onclick="hideQR()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="flex justify-center mb-4">
@@ -315,7 +315,7 @@
                 </div>
             </div>
             <h3 class="text-xl font-bold mb-2 text-slate-800">WhatsApp QR</h3>
-            <p class="text-sm text-slate-500 mb-6" data-lang="en">Scan to chat with Jeongmin Bae</p>
+            <p class="text-sm text-slate-500 mb-6" data-lang="en">Scan to chat with JUNG MIN BAE</p>
             <p class="text-sm text-slate-500 mb-6" data-lang="ko">스캔하여 배정민 과장과 상담하세요</p>
             
             <div class="bg-white p-2 border-4 border-[#25D366] rounded-2xl inline-block mb-6 shadow-inner">
@@ -401,13 +401,13 @@
                 fileName = `배정민_메가메디칼${phoneLabel}.vcf`;
             } else {
                 phoneLabel = isPrivateMode ? "(Private)" : "(Work)";
-                displayName = "Jeongmin Bae " + phoneLabel;
-                fileName = `JeongminBae_MegaMedical${phoneLabel}.vcf`;
+                displayName = "JUNG MIN BAE " + phoneLabel;
+                fileName = `JungMinBae_MegaMedical${phoneLabel}.vcf`;
             }
             
             const vCardData = [
                 "BEGIN:VCARD", "VERSION:3.0",
-                currentLang === 'ko' ? "N;CHARSET=UTF-8:;배정민;;;" : "N;CHARSET=UTF-8:Bae;Jeongmin;;;",
+                currentLang === 'ko' ? "N;CHARSET=UTF-8:;배정민;;;" : "N;CHARSET=UTF-8:Bae;Jung Min;;;",
                 "FN;CHARSET=UTF-8:" + displayName,
                 "ORG;CHARSET=UTF-8:Mega Medical (주)메가메디칼",
                 "TITLE;CHARSET=UTF-8:Manager (해외영업팀 과장)",
