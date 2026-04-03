@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SNS 공유 설정 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" id="og-title" content="Mega Medical - MIGUEL KIM">
+    <meta property="og:description" id="og-desc" content="Overseas Sales Team / Team Leader / Deputy General Manager">
+    <meta property="og:image" content="https://www.megamedical.co.kr/img/common/logo.png">
+
+    <title>Mega Medical - MIGUEL KIM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --brand-orange: #F15A24;
+            --brand-blue: #004C97;
+            --text-main: #333333;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+
+        .profile-header {
+            background-color: #ffffff;
+            padding: 50px 24px 60px;
+            text-align: right;
+            position: relative;
+            border-bottom: 8px solid var(--brand-orange);
+        }
+
+        /* 언어 전환 토글 버튼 */
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            display: flex;
+            gap: 4px;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            padding: 4px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--brand-orange);
+            color: white;
+        }
+
+        .logo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .logo-top {
+            color: var(--brand-orange);
+            font-weight: 900;
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .logo-bottom {
+            color: var(--brand-blue);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        .avatar-circle {
+            position: absolute;
+            bottom: -45px;
+            left: 24px;
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(241, 90, 36, 0.2);
+            border: 3px solid var(--brand-orange);
+        }
+
+        .avatar-initial {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--brand-orange);
+        }
+
+        .content {
+            padding: 65px 24px 35px;
+        }
+
+        .brand-btn {
+            background-color: var(--brand-orange);
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(241, 90, 36, 0.3);
+            transition: all 0.2s;
+        }
+
+        .brand-btn:active { transform: scale(0.97); }
+
+        .soft-item {
+            background: #FFF9F7;
+            border: 1px solid #FFEBE5;
+            transition: all 0.2s;
+        }
+
+        .soft-item:hover { 
+            border-color: var(--brand-orange);
+            background: white;
+        }
+
+        /* 언어별 표시 제어 */
+        [data-lang="ko"] { display: none; }
+
+        #toast {
+            visibility: hidden;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 50px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+
+        #toast.show { visibility: visible; animation: fadein 0.4s, fadeout 0.4s 2.6s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        .phone-type-tag {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .tag-work { background: #e2e8f0; color: #64748b; }
+        .tag-private { background: #fee2e2; color: #ef4444; }
+    </style>
+</head>
+<body>
+
+    <div class="card-container mx-4">
+        <!-- Header -->
+        <div class="profile-header">
+            <!-- Language Toggle -->
+            <div class="lang-toggle">
+                <div id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</div>
+                <div id="btn-ko" class="lang-btn" onclick="setLanguage('ko')">KR</div>
+            </div>
+
+            <!-- Logo (Double click to switch numbers) -->
+            <div class="logo-box" ondblclick="togglePhoneNumber()">
+                <span class="logo-top">mega</span>
+                <span class="logo-bottom">MEDICAL</span>
+            </div>
+            <div class="avatar-circle">
+                <span id="avatar-text" class="avatar-initial">MK</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="mb-10">
+                <h1 class="text-3xl font-extrabold text-slate-800">
+                    <span data-lang="en">MIGUEL KIM</span>
+                    <span data-lang="ko">김기웅</span>
+                </h1>
+                <p class="text-sm font-bold text-orange-600 mt-1">
+                    <span data-lang="en">Overseas Sales Team | Team Leader</span>
+                    <span data-lang="ko">해외영업팀 | 차장(팀장)</span>
+                    <span id="phone-status" class="phone-type-tag tag-work">WORK</span>
+                </p>
+                <div class="h-1.5 w-12 bg-[#F15A24] mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="space-y-4 mb-10">
+                <button onclick="downloadVCard()" class="w-full brand-btn py-4 rounded-2xl font-bold flex items-center justify-center gap-3 text-lg">
+                    <i class="fa-solid fa-address-book"></i> 
+                    <span data-lang="en">Save Contact</span>
+                    <span data-lang="ko">연락처 저장하기</span>
+                </button>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <a id="call-link" href="tel:01038735802" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                        <i class="fa-solid fa-phone text-[#F15A24] text-xl group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-bold text-slate-600" data-lang="en">Call</span>
+                        <span class="text-xs font-bold text-slate-600" data-lang="ko">전화</span>
+                    </a>
+                    <a href="mailto:kwkim@megamedical.co.kr" class="soft-item py-4 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                        <i class="fa-solid fa-envelope text-[#F15A24] text-xl group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-bold text-slate-600" data-lang="en">Email</span>
+                        <span class="text-xs font-bold text-slate-600" data-lang="ko">이메일</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Website Link -->
+            <div class="mb-10 text-center">
+                <a href="http://www.megamedical.co.kr" target="_blank" class="text-sm font-bold text-orange-500 border-b-2 border-orange-100 pb-1 hover:border-orange-500 transition-all">
+                    www.megamedical.co.kr <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                </a>
+            </div>
+
+            <!-- Address Info -->
+            <div class="space-y-5">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
+                        <i class="fa-solid fa-location-dot text-orange-500 text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest">Seoul Office</p>
+                        <p class="text-sm text-slate-700 font-medium leading-tight">
+                            <span data-lang="en">5F, 439, Bongeunsa-ro, Gangnam-gu, Seoul</span>
+                            <span data-lang="ko">서울시 강남구 봉은사로 439 CC빌딩 5층</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
+                        <i class="fa-solid fa-tty text-slate-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Office / Fax</p>
+                        <p class="text-sm text-slate-600">T. 02-3662-4495 / F. 02-3661-0120</p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-50 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 opacity-50">
+                        <i class="fa-solid fa-industry text-slate-400 text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Headquarter</p>
+                        <p class="text-[11px] text-slate-400">
+                             <span data-lang="en">110-1, Donghwagongdan-ro, Munmak-eup, Wonju-si</span>
+                             <span data-lang="ko">강원특별자치도 원주시 동화공단로 110-1</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-14 text-center">
+                <p class="text-[10px] text-slate-300 tracking-[0.2em] uppercase font-bold">We Do Your ENT / Mega Medical</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">
+        <span data-lang="en" id="toast-en">Contact saved.</span>
+        <span data-lang="ko" id="toast-ko">연락처를 저장할 수 있습니다.</span>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+        let isPrivateMode = false;
+
+        const WORK_PHONE = "010-3873-5802";
+        const PRIVATE_PHONE = "010-7231-1538";
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+
+            const enElements = document.querySelectorAll('[data-lang="en"]');
+            const koElements = document.querySelectorAll('[data-lang="ko"]');
+            const avatar = document.getElementById('avatar-text');
+
+            if (lang === 'ko') {
+                enElements.forEach(el => el.style.display = 'none');
+                koElements.forEach(el => el.style.display = 'inline-block');
+                avatar.innerText = "KW"; // 한국어일 땐 기웅(Ki-Woong)의 KW
+            } else {
+                enElements.forEach(el => el.style.display = 'inline-block');
+                koElements.forEach(el => el.style.display = 'none');
+                avatar.innerText = "MK"; // 영어일 땐 Miguel Kim의 MK
+            }
+        }
+
+        function togglePhoneNumber() {
+            isPrivateMode = !isPrivateMode;
+            const currentNum = isPrivateMode ? PRIVATE_PHONE : WORK_PHONE;
+            
+            const statusTag = document.getElementById('phone-status');
+            if (isPrivateMode) {
+                statusTag.innerText = "PRIVATE";
+                statusTag.className = "phone-type-tag tag-private";
+            } else {
+                statusTag.innerText = "WORK";
+                statusTag.className = "phone-type-tag tag-work";
+            }
+
+            document.getElementById('call-link').href = "tel:" + currentNum.replace(/-/g, "");
+            
+            const modeName = isPrivateMode ? "개인 번호 모드" : "업무 번호 모드";
+            const toastKo = document.getElementById('toast-ko');
+            const toastEn = document.getElementById('toast-en');
+            
+            const originalKo = toastKo.innerText;
+            const originalEn = toastEn.innerText;
+            
+            toastKo.innerText = modeName + "로 전환되었습니다.";
+            toastEn.innerText = "Switched to " + (isPrivateMode ? "Private" : "Work") + " mode.";
+            
+            showToast();
+            
+            setTimeout(() => {
+                toastKo.innerText = originalKo;
+                toastEn.innerText = originalEn;
+            }, 3000);
+        }
+
+        function downloadVCard() {
+            const currentNum = isPrivateMode ? PRIVATE_PHONE : WORK_PHONE;
+            
+            let displayName, fileName, phoneLabel;
+            
+            if (currentLang === 'ko') {
+                phoneLabel = isPrivateMode ? "(개인)" : "(업무)";
+                displayName = "김기웅 " + phoneLabel;
+                fileName = `김기웅_메가메디칼${phoneLabel}.vcf`;
+            } else {
+                phoneLabel = isPrivateMode ? "(Private)" : "(Work)";
+                displayName = "MIGUEL KIM " + phoneLabel;
+                fileName = `MiguelKim_MegaMedical${phoneLabel}.vcf`;
+            }
+            
+            const vCardData = [
+                "BEGIN:VCARD", "VERSION:3.0",
+                currentLang === 'ko' ? "N;CHARSET=UTF-8:;김기웅;;;" : "N;CHARSET=UTF-8:Kim;Miguel;;;",
+                "FN;CHARSET=UTF-8:" + displayName,
+                "ORG;CHARSET=UTF-8:Mega Medical (주)메가메디칼",
+                "TITLE;CHARSET=UTF-8:Team Leader / Deputy General Manager (해외영업팀 차장)",
+                "TEL;TYPE=CELL:" + currentNum,
+                "TEL;TYPE=WORK:02-3662-4495",
+                "EMAIL:kwkim@megamedical.co.kr",
+                "ADR;TYPE=WORK;CHARSET=UTF-8:;;5F, 439, Bongeunsa-ro;Gangnam-gu;Seoul;06097;Korea",
+                "URL:http://www.megamedical.co.kr",
+                "END:VCARD"
+            ].join("\r\n");
+
+            const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; 
+            a.download = fileName;
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a);
+            showToast();
+        }
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(() => { toast.className = ""; }, 3000);
+        }
+
+        // 초기 언어 설정 (영어가 기본일 경우 'en', 한국어가 기본일 경우 'ko')
+        setLanguage('en');
+    </script>
+</body>
+</html>
